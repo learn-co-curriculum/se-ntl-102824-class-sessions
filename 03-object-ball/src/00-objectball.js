@@ -120,6 +120,7 @@ console.log(gameObject());
 
 const game = gameObject();
 const teams = Object.values(game);
+const players = playersObject(game);
 
 function playersObject(gameObj) {
   return { ...game.home.players, ...game.away.players };
@@ -166,22 +167,86 @@ function bigShoeRebounds() {
     //   if (statsA.shoe < statsB.shoe) return 1
     //   if (statsA.shoe > statsB.shoe) return -1;
     //   return 0
-        return statsB.shoe - statsA.shoe
-    })
-    console.log("🚀 ~ bigShoeRebounds ~ sortedPlayers:", sortedPlayers)
-    return sortedPlayers[0].rebounds
+    return statsB.shoe - statsA.shoe;
+  });
+  console.log("🚀 ~ bigShoeRebounds ~ sortedPlayers:", sortedPlayers);
+  return sortedPlayers[0].rebounds;
 }
 // bigShoeRebounds()
 
-function mostPointsScored(gameObj) {
-    let sortedPlayers = Object.entries(playersObject())
-    sortedPlayers.sort((a, b) => b[1].points - a[1].points)
-    console.log("🚀 ~ mostPointsScored ~ sortedPlayer:", sortedPlayers)
-    return sortedPlayers[0][0]
+function mostPointsScored() {
+  let sortedPlayers = Object.entries(playersObject());
+  sortedPlayers.sort((a, b) => b[1].points - a[1].points);
+  console.log("🚀 ~ mostPointsScored ~ sortedPlayer:", sortedPlayers);
+  return sortedPlayers[0][0];
 }
 
-function winningTeam(gameObj) {}
+function winningTeam() {
+  // I want to create an array of team objs. I want arr so I can sort it by team scores
+  // I'll create my own objects, with just the team name and total score
+  // I can use Object.values and reduce()
+  // let teamsWithScores = [  // too much hard coding!
+  //   {
+  //     teamName: game.home.teamName,
+  //     score: Object.values(game.home.players).reduce((sum, playerStats) => sum + playerStats.points, 0)
+  //   },
+  //   {
+  //     teamName: game.away.teamName,
+  //     score: Object.values(game.away.players).reduce((sum, playerStats) => sum + playerStats.points, 0)
+  //   }
+  // ]
+  let teamsWithScores = teams.map((teamObj) => {
+    // ah, better! will work no matter how many teams, and
+    return {
+      // I'm not repeating myself
+      teamName: teamObj.teamName,
+      score: Object.values(teamObj.players).reduce(
+        (sum, playerStats) => sum + playerStats.points,
+        0
+      ),
+    };
+  });
+  // debugger
+  // I'll sort my custom array by the score and then take the first element from the array
+  const winner = teamsWithScores.sort((a, b) => b.score - a.score)[0];
+  return winner.teamName; // use .dotnotation to return the name of the winning team
+}
 
-function playerWithLongestName(gameObj) {}
+// this question is faulty in that there are two players
+// with equally long names for the longest criteron
+function playerWithLongestName(gameObj) {
+  // Object.keys returns an array of strings-the player names
+  // Then we sort those strings in the array by their length property
+  let sortedNames = Object.keys(players).sort((a, b) => b.length - a.length);
+  // We can grab the first element from the sorted array with [] index notation
+  return sortedNames[0];
+}
 
-function doesLongestNameStealATon(gameObj) {}
+function doesLongestNameStealATon(gameObj) {
+  let sortedPlayers = Object.entries(players);
+  // console.log('sortedPlayers: ', sortedPlayers);
+  sortedPlayers.sort((a, b) => {
+    if (a[1].steals < b[1].steals) return -1;
+    if (a[1].steals > b[1].steals) return 1;
+    return 0;
+  });
+  const mostStealsPlayer = sortedPlayers[0][0];
+  return playerWithLongestName() == mostStealsPlayer;
+}
+
+// here's one I made up to use .filter()
+// returns an array of the player names who have shoe sizes bigger than 15
+function bigFeetPlayers() {
+  // Object.entries keeps player names associated with their stats
+  const playerArr = Object.entries(players);
+  // debugger
+  // .filter will return a new array of player arrays only with shoe > 15, then .map will transform that into an array of just the name strings
+  return playerArr
+    .filter((player) => player[1].shoe > 15)
+    .map((pArr) => pArr[0]);
+}
+
+// Object.keys: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+// Object.values: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
+// Object.entries: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+// for...in loop: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in
