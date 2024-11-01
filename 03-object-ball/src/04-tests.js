@@ -1,0 +1,1 @@
+console.log(playerStats("Mason Plumlee"))
