@@ -17,11 +17,11 @@ As a user, I should be able to:
 - [x] Append each `img` element to the `nav` element
 
 2. View the 1st movie's details in the `#movie-info` div on page load
-- [] (use the 1st movie in the alread fetched array)
-- [] Select the child elements of the `#movie-info` div
-- [] declare a function `renderMovieDetails` that accepts a movie object as an argument
-- [] Assign movie attributes to the corresponding elements
-- [] Call the `renderMovieDetails` function with the 1st movie in the array
+- [x] (use the 1st movie in the alread fetched array)
+- [x] Select the child elements of the `#movie-info` div
+- [x] declare a function `renderMovieDetails` that accepts a movie object as an argument
+- [x] Assign movie attributes to the corresponding elements
+- [x] Call the `renderMovieDetails` function with the 1st movie in the array
 
 3. Click on a movie in the `#movie-list` to view its details in the `#movie-info` div
 - [] Attach a click event listener to each  `img` in  `nav` element
