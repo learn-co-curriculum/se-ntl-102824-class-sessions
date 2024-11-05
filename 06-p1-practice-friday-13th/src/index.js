@@ -2,6 +2,7 @@
 // Global constants
 ////////////
 const movieURL = "http://localhost:3000/movies";
+let selectedMovie; // memoize the currently selected movie
 
 /////////////
 // DOM Selectors
@@ -40,12 +41,13 @@ function renderInNav(movie) {
 }
 
 function renderMovieDetails(movie){
+    selectedMovie = movie // using the closure created with the movie obj to create semi-persistence (in the DOM)
     detailImage.src = movie.image
     detailImage.alt = `${movie.title} poster`
     title.textContent = movie.title
     yearReleased.textContent = movie.release_year
     description.textContent = movie.description
-    let watchValue = movie.watch ? "Watched" : "Unwatched"
+    let watchValue = movie.watched ? "Watched" : "Unwatched"
     watched.textContent = watchValue
     amount.textContent = movie.blood_amount
 }
@@ -53,6 +55,15 @@ function renderMovieDetails(movie){
 //////////////
 // Event listeners/handler fns
 //////////////
+
+function toggleWatched() {
+    console.log(selectedMovie.watched)
+    selectedMovie.watched = !selectedMovie.watched
+    console.log(selectedMovie.watched)
+    renderMovieDetails(selectedMovie)
+}
+
+watched.addEventListener('click', toggleWatched)
 
 ////////////
 // Intializers

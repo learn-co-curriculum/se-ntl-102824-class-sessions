@@ -28,9 +28,9 @@ As a user, I should be able to:
 - [x] When an `img` is clicked, call the `renderMovieDetails` function with the movie object
 
 4. Click the watched button to toggle the `watched` attribute of the movie object
-- [] Select the `#watched` button
-- [] Attach a click event listener to the `#watched` button
-- [] When the button is clicked, toggle the `watched` attribute of the currently selected movie object
+- [x] Select the `#watched` button
+- [x] Attach a click event listener to the `#watched` button
+- [x] When the button is clicked, toggle the `watched` attribute of the currently selected movie object
 
 5. Enter the amount of blood in the `#blood-amount` input field and it persists in the DOM
 - [] Select the `#blood-form` element
