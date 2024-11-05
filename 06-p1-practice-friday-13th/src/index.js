@@ -14,6 +14,8 @@ const yearReleased = document.querySelector("#year-released")
 const description = document.querySelector("#description")
 const watched = document.querySelector("#watched")
 const amount = document.querySelector("#amount")
+const bloodForm = document.querySelector("#blood-form")
+console.log("🚀 ~ bloodForm:", bloodForm)
 
 //////////////
 // Fetch fns
@@ -32,7 +34,7 @@ function renderAllMovies(movieArr) {
 }
 
 function renderInNav(movie) {
-  console.log("🚀 ~ renderInNav ~ movie:", movie);
+//   console.log("🚀 ~ renderInNav ~ movie:", movie);
   const img = document.createElement("img");
   img.src = movie.image;
   img.alt = `${movie.title} poster`
@@ -57,13 +59,21 @@ function renderMovieDetails(movie){
 //////////////
 
 function toggleWatched() {
-    console.log(selectedMovie.watched)
     selectedMovie.watched = !selectedMovie.watched
-    console.log(selectedMovie.watched)
     renderMovieDetails(selectedMovie)
 }
 
 watched.addEventListener('click', toggleWatched)
+
+function handleBloodSubmit(e) {
+    e.preventDefault()
+    console.log(e.target["blood-amount"].value)
+    selectedMovie.blood_amount += Number(e.target["blood-amount"].value)
+    renderMovieDetails(selectedMovie)
+    e.target.reset()
+}
+
+bloodForm.addEventListener('submit', handleBloodSubmit)
 
 ////////////
 // Intializers

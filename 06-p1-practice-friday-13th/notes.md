@@ -33,10 +33,10 @@ As a user, I should be able to:
 - [x] When the button is clicked, toggle the `watched` attribute of the currently selected movie object
 
 5. Enter the amount of blood in the `#blood-amount` input field and it persists in the DOM
-- [] Select the `#blood-form` element
-- [] Attach a submit event listener to the `#blood-form` element
-- [] When the form is submitted, prevent the default behavior
-- [] When the form is submitted get the value of the input and add it to the current movie object `blood_amount` attribute
+- [x] Select the `#blood-form` element
+- [x] Attach a submit event listener to the `#blood-form` element
+- [x] When the form is submitted, prevent the default behavior
+- [x] When the form is submitted get the value of the input and add it to the current movie object `blood_amount` attribute
 
 
 # Data shape
