@@ -43,6 +43,7 @@ function renderInNav(movie) {
 }
 
 function renderMovieDetails(movie){
+    // debugger; // helps see the closures created with different movie objects
     selectedMovie = movie // using the closure created with the movie obj to create semi-persistence (in the DOM)
     detailImage.src = movie.image
     detailImage.alt = `${movie.title} poster`
