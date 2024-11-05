@@ -35,6 +35,7 @@ function renderInNav(movie) {
   const img = document.createElement("img");
   img.src = movie.image;
   img.alt = `${movie.title} poster`
+  img.addEventListener('click', () => renderMovieDetails(movie))
   movieList.append(img)
 }
 

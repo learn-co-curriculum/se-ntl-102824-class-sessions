@@ -24,8 +24,8 @@ As a user, I should be able to:
 - [x] Call the `renderMovieDetails` function with the 1st movie in the array
 
 3. Click on a movie in the `#movie-list` to view its details in the `#movie-info` div
-- [] Attach a click event listener to each  `img` in  `nav` element
-- [] When an `img` is clicked, call the `renderMovieDetails` function with the movie object
+- [x] Attach a click event listener to each  `img` in  `nav` element
+- [x] When an `img` is clicked, call the `renderMovieDetails` function with the movie object
 
 4. Click the watched button to toggle the `watched` attribute of the movie object
 - [] Select the `#watched` button
