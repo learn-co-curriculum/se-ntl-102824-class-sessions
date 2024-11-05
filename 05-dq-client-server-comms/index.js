@@ -1,19 +1,46 @@
-const url = "https://data.cityofchicago.org/resource/f7f2-ggz5.json" // CityBike Data from data.gov
+const url = "https://data.cityofchicago.org/resource/eix4-gf83.json?objectid_1=1" // Parks data from City of Chicago
 const data = fetch(url)
 
 console.log(data) // Promise {<pending>}
 
 
 fetch(url).then(console.log)
-// Response {type: "cors", url: "https://data.cityofnewyork.us/api/views/p94q-8hxh", redirected: false, status: 200, ok: true, …}
+// Response {type: "cors", url: "https://data.cityofchicago.org/resource/eix4-gf83.json?objectid_1=1", redirected: false, status: 200, ok: true, …}
 
 fetch(url)
   .then(function(response){
     return response.json()
   }).then(console.log)
-// {id: "p94q-8hxh", name: "Citi Bike Live Station Feed (JSON)", attribution: "CitiBike", attributionLink: "http://citibikenyc.com/stations/json", averageRating: 0, …}```
+
+/*
+  {
+    the_geom: { type: 'Point', coordinates: [Array] },
+    objectid_1: '1',
+    park: 'HAMILTON (ALEXANDER)',
+    park_no: '9.0',
+    facility_n: 'CULTURAL CENTER',
+    facility_t: 'SPECIAL',
+    x_coord: '-87.63769763',
+    y_coord: '41.76299921',
+    gisobjid: '2494.0'
+  }
+]
+*/
 
 const getJSON = url => fetch(url).then(res => res.json())
 
 getJSON(url).then(console.log)
-// {id: "p94q-8hxh", name: "Citi Bike Live Station Feed (JSON)", attribution: "CitiBike", attributionLink: "http://citibikenyc.com/stations/json", averageRating: 0, …}``
+/*
+  {
+    the_geom: { type: 'Point', coordinates: [Array] },
+    objectid_1: '1',
+    park: 'HAMILTON (ALEXANDER)',
+    park_no: '9.0',
+    facility_n: 'CULTURAL CENTER',
+    facility_t: 'SPECIAL',
+    x_coord: '-87.63769763',
+    y_coord: '41.76299921',
+    gisobjid: '2494.0'
+  }
+]
+*/
