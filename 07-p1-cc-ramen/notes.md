@@ -18,9 +18,9 @@ As a user, I should
 - [x] set the src attribute of the img element to the ramen image
 - [x] append the img element to the ramen-menu div
 2. click on ramen image in menu and see details in ramen-detail div
-- [] select existing elements that will display ramen data
-- [] attach event listener to the ramen images
-- [] use handleClick as event handler to render
+- [x] select existing elements that will display ramen data
+- [x] attach event listener to the ramen images
+- [x] use handleClick as event handler to render
 3. fill in the new ramen form and see a new ramen added to the menu
 - [] select the form
 - [] call addSubmitListener() to attach event listener to form
