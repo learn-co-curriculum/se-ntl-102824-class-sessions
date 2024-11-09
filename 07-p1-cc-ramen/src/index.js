@@ -97,9 +97,10 @@ const handleSubmit = (event) => {
 
 // Callbacks
 
-const addSubmitListener = () => {
+const addSubmitListener = (form) => {
   // Add code
-  document.querySelector('#new-ramen').addEventListener('submit', handleSubmit)
+  form.addEventListener('submit', handleSubmit)
+  // document.querySelector('#new-ramen').addEventListener('submit', handleSubmit)
 };
 
 const main = () => {

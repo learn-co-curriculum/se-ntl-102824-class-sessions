@@ -147,7 +147,7 @@ describe('handleClick', () => {
 
 describe('handleSubmit', () => {
     it('should add a new slider image when the submit button is clicked', async () => {
-        const ramenForm = document.getElementById('new-ramen');
+        const ramenForm = await document.getElementById('new-ramen');
         addSubmitListener(ramenForm)
         const newRamen = {
             name: 'Mat',
