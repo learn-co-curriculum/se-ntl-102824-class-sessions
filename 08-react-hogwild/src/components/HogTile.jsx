@@ -6,6 +6,8 @@ function HogTile({ hog }) {
     const [isShowDetail, setIsShowDetail] = useState(false)
     const [isShowing, setIsShowing] = useState(true)
 
+    if (!isShowing) return null
+
   return (
     <div className='ui card eight wide column pigTile'>
         <div className="image">
