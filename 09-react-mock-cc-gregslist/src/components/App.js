@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import ListingsContainer from "./ListingsContainer";
+import ListingForm from "./ListingForm";
 
 const baseURL = "http://localhost:6001";
 function App() {
@@ -26,6 +27,11 @@ function App() {
     // setListings(listings.filter(listing => listing.id !== listingId)) // optimistic rendering
   }
 
+  function addListing(newListing){
+    console.log("🚀 ~ addListing ~ newListing:", newListing)
+    setListings([newListing, ...listings])
+  }
+
   function changeSearch(newSearchTerm) {
     setSearchTerm(newSearchTerm);
   }
@@ -39,6 +45,7 @@ function App() {
   return (
     <div className="app">
       <Header onSearch={changeSearch} />
+      <ListingForm onSubmitListing={addListing}/>
       <ListingsContainer
         listings={filterListings()}
         onDelete={removeListing}
