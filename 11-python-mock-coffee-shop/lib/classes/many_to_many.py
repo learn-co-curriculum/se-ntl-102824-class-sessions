@@ -22,8 +22,8 @@ class Coffee:
     def num_orders(self):
         return len(self.orders())
 
-    def average_price(self):
-        pass
+    def average_price(self):  # sum / count
+        return sum([order.price for order in self.orders()]) / self.num_orders()
 
 
 class Customer:
