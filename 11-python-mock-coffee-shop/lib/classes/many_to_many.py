@@ -27,6 +27,16 @@ class Coffee:
 
 
 class Customer:
+
+    @classmethod
+    def most_aficionado(cls, coffee):
+        cust_spend = {}
+        for customer in coffee.customers():
+            cust_spend[customer] = sum(
+                [order.price for order in coffee.orders() if order.customer == customer]
+            )
+        return max(cust_spend, key=cust_spend.get)
+
     def __init__(self, name):
         self.name = name
 
