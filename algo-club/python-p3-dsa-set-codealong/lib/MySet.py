@@ -7,3 +7,12 @@ class MySet:
 
     def add(self, value):
         self.dictionary[value] = True
+
+    def has(self, value):
+        return value in self.dictionary
+
+    def delete(self, value):
+        del self.dictionary[value]
+
+    def size(self):
+        return len(self.dictionary)
