@@ -23,7 +23,8 @@ class TestStack:
         stk = Stack([1,2,3,4,5])
         stk.pop()
         expected = [1,2,3,4]
-        for index in range(len(expected)):
+        assert(len(stk.items) == len(expected))
+        for index in range(len(stk.items)):
             assert(expected[index] == stk.items[index])
 
     def test_size(self):
@@ -70,3 +71,17 @@ class TestStack:
 
         # Case with target not in Stack
         assert(stk.search(15) == -1)
+
+    def test_peek(self):
+        "Test Stack peek() method. Returns the top item of the stack."
+        stk = Stack([5,6,7,8,9,10])
+
+        assert(stk.peek() == 10)
+        stk.pop()
+        assert(stk.peek() == 9)
+
+        stk = Stack([3, 2, 4, 1])
+        assert(stk.peek() == 1)
+
+        stk = Stack([])
+        assert(stk.peek() == None)
