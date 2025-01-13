@@ -28,11 +28,37 @@ class LinkedList:
         if index > self.length:
             return "index is out of range"
         current = self.head
-        for _ in range(index - 1):
+        for _ in range(index):
             current = current.next
         new_node.next = current.next
         current.next = new_node
         return self
+
+    def search(self, target):
+        current = self.head
+        index = 0
+        while current:
+            if current.value == target:
+                return index
+            current = current.next
+            index += 1
+        return -1
+
+    def insert_after_target(self, target, new_node):
+        idx = self.search(target)
+        if idx >= 0:
+            self.insert_after(idx, new_node)
+
+    def remove_tail(self):
+        if not self.head:
+            print("The list is empty")
+            return
+        current = self.head
+        prev = self.head
+        while current.next:
+            prev = current
+            current = current.next
+        prev.next = None
 
     def print(self):
         if not self.head:
