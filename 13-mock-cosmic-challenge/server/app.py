@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-from models import db, Scientist, Mission, Planet
-from flask_restful import Api, Resource
-from flask_migrate import Migrate
-from flask import Flask, make_response, jsonify, request
 import os
+
+from flask import Flask, jsonify, make_response, request
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
+from models import Mission, Planet, Scientist, db
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
@@ -20,10 +21,18 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+api = Api(app)
 
-@app.route('/')
-def home():
-    return ''
+# @app.route('/')
+# def home():
+#     return ''
+
+class Scientists(Resource):
+    def get(self):
+        scis = [sci.to_dict(only=("id", "name", "field_of_study")) for sci in Scientist.query.all()]
+        return make_response(scis, 200)
+    
+api.add_resource(Scientists, "/scientists")
 
 
 if __name__ == '__main__':
