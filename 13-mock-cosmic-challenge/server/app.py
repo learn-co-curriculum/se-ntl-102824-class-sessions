@@ -77,8 +77,28 @@ class ScientistById(Resource):
         db.session.commit()
         return make_response({}, 204)
     
+class Planets(Resource):
+    def get(self):
+        planets = [p.to_dict(rules=("-missions",)) for p in Planet.query.all()]
+        return make_response(planets, 200)
+    
+    
+class Missions(Resource):
+    def post(self):
+        r_dict = request.get_json()
+        try:
+            mission = Mission(**r_dict)
+        except ValueError:
+             abort(400)
+        db.session.add(mission)
+        db.session.commit()
+        return make_response(mission.to_dict(), 201)
+
+    
 api.add_resource(Scientists, "/scientists")
 api.add_resource(ScientistById, "/scientists/<int:id>")
+api.add_resource(Planets, "/planets")
+api.add_resource(Missions, "/missions")
 
 @app.errorhandler(404)
 def handle_404(e):
