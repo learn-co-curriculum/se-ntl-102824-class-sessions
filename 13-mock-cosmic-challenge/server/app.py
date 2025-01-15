@@ -2,7 +2,7 @@
 
 import os
 
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, abort, make_response, request
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from models import Mission, Planet, Scientist, db
@@ -21,6 +21,7 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+Api.error_router = lambda self, handler, e: handler(e)
 api = Api(app)
 
 # @app.route('/')
@@ -31,35 +32,61 @@ class Scientists(Resource):
     def get(self):
         scis = [sci.to_dict(only=("id", "name", "field_of_study")) for sci in Scientist.query.all()]
         return make_response(scis, 200)
+
+    def post(self):
+        r_dict = request.get_json()
+        try:
+            sci = Scientist(**r_dict)
+        except ValueError:
+             abort(400)
+        db.session.add(sci)
+        db.session.commit()
+        return make_response(sci.to_dict(), 201)
     
 class ScientistById(Resource):
 
     @classmethod
     def find_sci(cls, id):
-            sci = Scientist.query.get(id)
+            sci = Scientist.query.get_or_404(id)
             print(sci)
             return sci
         
     def get(self, id):
         sci = self.__class__.find_sci(id)
-        if not sci:
-             return make_response({"error": "Scientist not found"}, 404)
+        # if not sci:
+        #      return make_response({"error": "Scientist not found"}, 404)
         return make_response(sci.to_dict(), 200)
+    
+    def patch(self, id):
+        sci = self.__class__.find_sci(id)
+        r_dict = request.get_json()
+        try:
+            for attr, val in r_dict.items():
+                setattr(sci, attr, val)
+        except ValueError: 
+            abort(400)
+        db.session.commit()
+        return make_response(sci.to_dict(), 202)
+        
     
     def delete(self, id):
         sci = self.__class__.find_sci(id)
-        if not sci:
-             return make_response({"error": "Scientist not found"}, 404)
+        # if not sci:
+        #      return make_response({"error": "Scientist not found"}, 404)
         db.session.delete(sci)
         db.session.commit()
-        return make_response("", 204)
+        return make_response({}, 204)
     
 api.add_resource(Scientists, "/scientists")
 api.add_resource(ScientistById, "/scientists/<int:id>")
 
-# @app.register_error_handler(404)
-# def handle_404(e):
-#      return make_response({ "error": f"{request.path}.replace("/1234567890").title()"})
+@app.errorhandler(404)
+def handle_404(e):
+     return make_response({ "error": "Scientist not found"}, 404)
+
+@app.errorhandler(400)
+def handle_400(e):
+     return make_response({ "errors": ["validation errors"]}, 400)
 
 
 if __name__ == '__main__':
